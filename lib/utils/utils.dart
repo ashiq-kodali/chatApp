@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 
 import '../firebase_options.dart';
 import '../services/alert_services.dart';
+import '../services/media_service.dart';
 import '../services/navigation_service.dart';
 
 Future<void> setupFirebase ()async{
@@ -20,4 +21,5 @@ Future <void> registerServices () async{
   getIt.registerSingleton<AuthService>(AuthService());
   getIt.registerSingleton<NavigationService>(NavigationService());
   getIt.registerSingleton<AlertServices>(AlertServices());
+  getIt.registerSingleton<MediaService>(MediaService());
 }

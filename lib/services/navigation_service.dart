@@ -29,7 +29,7 @@ class NavigationService {
   void pushReplacementNamed (String routeName){
     _navigatorKey.currentState?.pushReplacementNamed(routeName);
   }
-  void goBack (String routeName){
+  void goBack (){
     _navigatorKey.currentState?.pop();
   }
 }

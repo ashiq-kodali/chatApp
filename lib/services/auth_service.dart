@@ -41,4 +41,18 @@ class AuthService {
       _user = null;
     }
   }
+
+  Future<bool> signUp(String email, String password) async {
+    try {
+      final credential = await _firebseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      if (credential.user != null) {
+        _user = credential.user;
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
 }
