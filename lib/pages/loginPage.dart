@@ -125,6 +125,8 @@ class _LoginPageState extends State<LoginPage> {
             bool result = await _authService.login(email!, password!);
             print(result);
             if (result){
+              _alertServices.showToast(text: "Successfully logged!",icon: Icons.error);
+              _alertServices.showToast(text: "Successfully logged!",icon: Icons.error);
               _navigationService.pushReplacementNamed("/home");
 
             }else{

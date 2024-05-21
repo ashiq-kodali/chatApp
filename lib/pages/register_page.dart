@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:chatapp_firebase/models/user_profile.dart';
+import 'package:chatapp_firebase/services/alert_services.dart';
+import 'package:chatapp_firebase/services/database_service.dart';
 import 'package:chatapp_firebase/services/media_service.dart';
 import 'package:chatapp_firebase/services/navigation_service.dart';
+import 'package:chatapp_firebase/services/storage_service.dart';
 import 'package:chatapp_firebase/widgets/customFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -21,6 +25,9 @@ class _RegisterPageState extends State<RegisterPage> {
   late MediaService _mediaService;
   late NavigationService _navigationService;
   late AuthService _authService;
+  late StorageService _storageService;
+  late DatabaseService _databaseService;
+  late AlertServices _alertServices;
 
   late Size size;
   final GlobalKey<FormState> _registerFormKey = GlobalKey();
@@ -32,6 +39,9 @@ class _RegisterPageState extends State<RegisterPage> {
     _authService = _getIT.get<AuthService>();
     _mediaService = _getIT.get<MediaService>();
     _navigationService = _getIT.get<NavigationService>();
+    _storageService = _getIT.get<StorageService>();
+    _databaseService = _getIT.get<DatabaseService>();
+    _alertServices = _getIT.get<AlertServices>();
 
     super.initState();
   }
@@ -135,11 +145,28 @@ class _RegisterPageState extends State<RegisterPage> {
                 selectedImage != null) {
               _registerFormKey.currentState?.save();
               bool result = await _authService.signUp(email!, password!);
-              if (result) {}
-              print(result);
+              if (result) {
+                String? pfpURL = await _storageService.uploadUserPfp(
+                    file: selectedImage!, uid: _authService.user!.uid);
+                if (pfpURL != null) {
+                  await _databaseService.createUserProfile(
+                      userProfile: UserProfile(
+                          uid: _authService.user!.uid,
+                          name: name,
+                          pfpURL: pfpURL));
+                  _alertServices.showToast(text: "User registered successfully",icon: Icons.check);
+                  _navigationService.goBack();
+                  _navigationService.pushReplacementNamed("/home");
+                }else{
+                  throw Exception('Unable to upload user profile');
+                }
+              }else{
+                throw Exception('Unable to register user');
+              }
             }
           } catch (e) {
             print(e);
+            _alertServices.showToast(text: "Failed to register, Please try again!",icon: Icons.check);
           }
           setState(() {
             isLoading = false;

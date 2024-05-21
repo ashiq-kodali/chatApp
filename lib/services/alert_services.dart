@@ -15,6 +15,7 @@ class AlertServices {
   void showToast({required String text, IconData icon = Icons.info}) {
     try {
       DelightToastBar(
+        autoDismiss: true,
         builder: (context) {
           return ToastCard(
             leading: Icon(

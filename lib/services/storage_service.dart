@@ -8,7 +8,7 @@ class StorageService {
 
   Future<String?> uploadUserPfp({required File file, required String uid}) async{
 
-    Reference fileRef = await _firebaseStorage.ref('users/prpf').child("$uid${p.extension(file.path)}");
+    Reference fileRef = _firebaseStorage.ref('users/prpf').child("$uid${p.extension(file.path)}");
     UploadTask uploadTask  =  fileRef.putFile(file);
     return uploadTask.then((p){
       if (p.state == TaskState.success){

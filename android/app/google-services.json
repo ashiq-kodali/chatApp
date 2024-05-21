@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "342323123797",
-    "project_id": "chatapp-2ab0a",
-    "storage_bucket": "chatapp-2ab0a.appspot.com"
+    "project_number": "234567568334",
+    "project_id": "nk-app-693ab",
+    "storage_bucket": "nk-app-693ab.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:342323123797:android:6943a17b8f73e8a7cde6dc",
+        "mobilesdk_app_id": "1:234567568334:android:eccf72ae7cf84734eaf99f",
         "android_client_info": {
           "package_name": "com.example.chatapp_firebase"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBl0bzSD1WR8A6QIokBht1BxjANfA3deh0"
+          "current_key": "AIzaSyDtjHjSUg2pDwHYGnzuQ1jQsIAAi1ZAI0Y"
         }
       ],
       "services": {
